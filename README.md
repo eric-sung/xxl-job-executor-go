@@ -23,8 +23,8 @@ package main
 import (
 	"context"
 	"fmt"
-	xxl "github.com/xxl-job/xxl-job-executor-go"
-	"github.com/xxl-job/xxl-job-executor-go/example/task"
+	xxl "github.com/eric-sung/xxl-job-executor-go"
+	"github.com/eric-sung/xxl-job-executor-go/example/task"
 	"log"
 )
 
@@ -45,6 +45,13 @@ func main() {
 	exec.RegTask("task.test", task.Test)
 	exec.RegTask("task.test2", task.Test2)
 	exec.RegTask("task.panic", task.Panic)
+	tasks := func() map[string]xxl.TaskFunc {
+		return map[string]xxl.TaskFunc{
+			"task.test":  task.Test,
+			"task.test2": task.Test2,
+		}
+	}
+	exec.RegTasks(tasks)
 	log.Fatal(exec.Run())
 }
 

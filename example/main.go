@@ -25,6 +25,13 @@ func main() {
 	exec.RegTask("task.test", task.Test)
 	exec.RegTask("task.test2", task.Test2)
 	exec.RegTask("task.panic", task.Panic)
+	tasks := func() map[string]xxl.TaskFunc {
+		return map[string]xxl.TaskFunc{
+			"task.test":  task.Test,
+			"task.test2": task.Test2,
+		}
+	}
+	exec.RegTasks(tasks)
 	log.Fatal(exec.Run())
 }
 
